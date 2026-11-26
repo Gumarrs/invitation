@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ivory: #f8f2e6;
+  --champagne: #e6d3ae;
+  --cocoa: #2a1b12;
+  --gold: #b8893c;
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ivory text-cocoa font-sans antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #d9b56e;
+    color: #2a1b12;
+  }
+  :focus-visible {
+    outline: 2px solid #b8893c;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  img,
+  svg {
+    display: block;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply font-sans text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-gold-600;
+  }
+  .display {
+    @apply font-serif font-medium leading-[0.95] tracking-tight;
+  }
+  .container-x {
+    @apply mx-auto w-full max-w-[1360px] px-5 sm:px-8 lg:px-12;
+  }
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-colors duration-500;
+  }
+  .btn-solid {
+    @apply bg-cocoa text-ivory hover:bg-gold-600;
+  }
+  .btn-gold {
+    @apply bg-gold-400 text-cocoa hover:bg-gold-300;
+  }
+  .btn-ghost {
+    @apply border border-cocoa/30 text-cocoa hover:border-cocoa hover:bg-cocoa hover:text-ivory;
+  }
+  .btn-ghost-light {
+    @apply border border-ivory/40 text-ivory hover:bg-ivory hover:text-cocoa;
+  }
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s var(--ease-silk);
+  }
+  .link-underline:hover,
+  .link-underline.is-active {
+    background-size: 100% 1px;
+  }
+  .paper-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45  0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+/* Elemen yang akan dianimasikan GSAP. Disembunyikan hanya bila JS aktif dan
+   motion diperbolehkan, supaya konten tetap terbaca tanpa JS / reduced-motion. */
+.js-motion [data-reveal],
+.js-motion [data-split],
+.js-motion [data-hero] {
+  visibility: hidden;
+}
+.split-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+.split-line > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+.will-move {
+  will-change: transform;
+}
+
+/* Page transition (router) */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.35s var(--ease-silk), transform 0.35s var(--ease-silk);
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.page-leave-to {
+  opacity: 0;
+}
+
+/* Grid katalog: item baru muncul halus, sisanya bergeser (transform saja) */
+.tgrid-move {
+  transition: transform 0.55s var(--ease-silk);
+}
+.tgrid-enter-active {
+  transition: opacity 0.5s var(--ease-silk), transform 0.5s var(--ease-silk);
+}
+.tgrid-enter-from {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* Scrollbar tipis */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b8893c33 transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js-motion [data-reveal],
+  .js-motion [data-split],
+  .js-motion [data-hero] {
+    visibility: visible;
+  }
+}
