@@ -115,6 +115,24 @@
   opacity: 0;
 }
 
+/* Reveal ringan untuk isi undangan demo (IntersectionObserver, bukan GSAP) */
+.d-rev {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.9s var(--ease-silk), transform 0.9s var(--ease-silk);
+}
+.d-rev.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .d-rev {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Grid katalog: item baru muncul halus, sisanya bergeser (transform saja) */
 .tgrid-move {
   transition: transform 0.55s var(--ease-silk);

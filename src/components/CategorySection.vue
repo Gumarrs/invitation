@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ArrowUpRight } from 'lucide-vue-next'
+import { ArrowUpRight, Play } from 'lucide-vue-next'
 import OrnamentArt from './OrnamentArt.vue'
 import { categories } from '@/data/categories'
 import { templates } from '@/data/templates'
@@ -29,10 +29,18 @@ const count = (id: string) => templates.filter((t) => t.category === id).length
       </div>
 
       <ul data-reveal="stagger" class="mt-16 border-b border-cocoa/15 lg:mt-24">
-        <li v-for="(c, i) in categories" :key="c.id" class="border-t border-cocoa/15">
+        <li v-for="(c, i) in categories" :key="c.id" class="group relative border-t border-cocoa/15">
+          <!-- Tautan demo bersaudara (bukan di dalam tautan katalog) supaya tidak ada anchor bersarang -->
+          <RouterLink
+            :to="{ name: 'demo-category', params: { id: c.id } }"
+            class="absolute right-2 top-2 z-10 inline-flex items-center gap-1.5 rounded-full bg-cocoa px-3.5 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ivory transition-colors duration-300 hover:bg-gold-600"
+            :aria-label="`Lihat demo undangan ${c.name}`"
+          >
+            <Play :size="11" aria-hidden="true" /> Demo
+          </RouterLink>
           <RouterLink
             :to="{ name: 'catalog', query: { category: c.id } }"
-            class="group relative grid items-center gap-x-6 gap-y-3 overflow-hidden py-7 sm:py-9 lg:grid-cols-12"
+            class="relative grid items-center gap-x-6 gap-y-3 overflow-hidden py-7 sm:py-9 lg:grid-cols-12"
             :aria-label="`Lihat ${count(c.id)} desain ${c.name}`"
           >
             <!-- latar warna kategori meluncur dari kiri saat hover -->

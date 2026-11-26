@@ -15,6 +15,20 @@ const router = createRouter({
       component: () => import('./views/TemplateDetailView.vue'),
       props: true,
     },
+    {
+      path: '/demo/tema/:id',
+      name: 'demo-theme',
+      component: () => import('./views/DemoView.vue'),
+      props: (r) => ({ kind: 'tema', id: r.params.id }),
+      meta: { bare: true },
+    },
+    {
+      path: '/demo/kategori/:id',
+      name: 'demo-category',
+      component: () => import('./views/DemoView.vue'),
+      props: (r) => ({ kind: 'kategori', id: r.params.id }),
+      meta: { bare: true },
+    },
     // Route yang tidak dikenal kembali ke beranda agar tidak ada halaman kosong
     { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
   ],

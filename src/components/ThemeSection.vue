@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { ArrowUpRight } from 'lucide-vue-next'
+import { ArrowUpRight, Play } from 'lucide-vue-next'
 import InvitationMockup from './InvitationMockup.vue'
 import OrnamentArt from './OrnamentArt.vue'
 import { themes } from '@/data/themes'
@@ -103,14 +103,24 @@ function onKey(e: KeyboardEvent, i: number) {
                     </span>
                   </div>
 
-                  <RouterLink
-                    :to="{ name: 'catalog', query: { theme: active.id } }"
-                    class="btn mt-9"
-                    :style="{ background: active.palette[1], color: active.palette[0] }"
-                  >
-                    Lihat {{ designs.length }} desain {{ active.name }}
-                    <ArrowUpRight :size="16" aria-hidden="true" />
-                  </RouterLink>
+                  <div class="mt-9 flex flex-wrap gap-3">
+                    <RouterLink
+                      :to="{ name: 'demo-theme', params: { id: active.id } }"
+                      class="btn"
+                      :style="{ background: active.palette[1], color: active.palette[0] }"
+                    >
+                      <Play :size="15" aria-hidden="true" />
+                      Lihat Demo {{ active.name }}
+                    </RouterLink>
+                    <RouterLink
+                      :to="{ name: 'catalog', query: { theme: active.id } }"
+                      class="btn"
+                      :style="{ boxShadow: `inset 0 0 0 1px ${active.palette[1]}66`, color: active.palette[1] }"
+                    >
+                      {{ designs.length }} desain
+                      <ArrowUpRight :size="16" aria-hidden="true" />
+                    </RouterLink>
+                  </div>
                 </div>
 
                 <div class="relative mx-auto w-[62%] max-w-[260px] md:col-span-2 md:w-full">

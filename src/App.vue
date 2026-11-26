@@ -29,7 +29,7 @@ watch(
   >
     Lompat ke konten
   </a>
-  <Navbar />
+  <Navbar v-if="!route.meta.bare" />
   <main id="main" tabindex="-1" class="outline-none">
     <RouterView v-slot="{ Component, route: r }">
       <Transition name="page" mode="out-in" @after-enter="onAfterEnter">
@@ -37,6 +37,6 @@ watch(
       </Transition>
     </RouterView>
   </main>
-  <Footer />
+  <Footer v-if="!route.meta.bare" />
   <PreviewModal />
 </template>

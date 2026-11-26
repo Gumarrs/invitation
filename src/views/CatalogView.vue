@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { SearchX, SlidersHorizontal, X } from 'lucide-vue-next'
+import { Play, SearchX, SlidersHorizontal, X } from 'lucide-vue-next'
 import FilterSidebar from '@/components/FilterSidebar.vue'
 import TemplateGrid from '@/components/TemplateGrid.vue'
 import OrnamentArt from '@/components/OrnamentArt.vue'
@@ -22,6 +22,13 @@ const heading = computed(() => {
   return 'Semua Desain'
 })
 
+// Bila katalog sedang difilter ke satu kategori/tema, tawarkan demonya.
+const demoTo = computed(() => {
+  if (f.category.value) return { name: 'demo-category', params: { id: f.category.value } }
+  if (f.theme.value) return { name: 'demo-theme', params: { id: f.theme.value } }
+  return null
+})
+
 document.title = 'Katalog — Kirana Invitation'
 </script>
 
@@ -34,6 +41,13 @@ document.title = 'Katalog — Kirana Invitation'
         <p data-reveal="0.1" class="mt-5 max-w-lg text-cocoa/70">
           Telusuri {{ templates.length }} desain undangan. Gabungkan filter untuk menemukan yang paling pas.
         </p>
+        <RouterLink
+          v-if="demoTo"
+          :to="demoTo"
+          class="btn btn-ghost mt-6 !py-2.5 !text-[0.8rem]"
+        >
+          <Play :size="14" aria-hidden="true" /> Lihat demo {{ heading }}
+        </RouterLink>
       </header>
 
       <div class="mt-14 grid gap-12 lg:grid-cols-12">

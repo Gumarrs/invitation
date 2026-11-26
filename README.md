@@ -23,8 +23,17 @@ src/
   composables/  useCatalogFilters (filter di query URL), usePreview, useScrolled, useGsapContext
   directives/   v-magnetic, v-tilt
   lib/          gsap (registrasi plugin), reveal (data-reveal / data-split / data-mask / data-parallax)
-  views/        HomeView, CatalogView, TemplateDetailView
+  views/        HomeView, CatalogView, TemplateDetailView, DemoView
 ```
+
+## Demo tema & kategori
+
+- `/demo/tema/:id` (11 tema) dan `/demo/kategori/:id` (7 kategori), mis. `/demo/tema/jawa`, `/demo/kategori/birthday`.
+- Demo tema bisa dicoba dengan jenis acara lain lewat `?category=`, demo kategori dengan tema lain lewat `?theme=`
+  (ada pilihan chip di panel kiri).
+- Isi demo: cover "Buka Undangan", sapaan khas tema, countdown, jadwal, salin alamat, simpan ke kalender (.ics),
+  galeri SVG, RSVP (validasi + daftar ucapan, hanya di memori), dan QR contoh untuk kategori Corporate.
+- Konten ada di `src/data/demos.ts`; halamannya `src/views/DemoView.vue`.
 
 ## Catatan teknis
 
